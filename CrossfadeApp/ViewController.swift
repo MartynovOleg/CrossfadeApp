@@ -16,19 +16,31 @@ class ViewController: UIViewController {
    
     @IBOutlet var audio1Botton: UIButton!
     @IBOutlet var audio2Button: UIButton!
-    
+    @IBAction func playDidTapped(_ sender: Any) {
+        
+        if let audioPlayer = audioPlayer, audioPlayer.isPlaying {
+            audioPlayer.stop()
+            playButton.setTitle(" Play", for: .normal)
+            self.audioNames.text = ""
+            playButton.setImage(UIImage.init(systemName: "play.circle.fill"), for: .normal)
+        } else {
+            playSound()
+            playButton.setTitle(" Stop", for: .normal)
+            playButton.setImage(UIImage.init(systemName: "stop.circle.fill"), for: .normal)
+        }
+    }
+    @IBAction func crossfadeValues(_ sender: Any) {
+    }
     @IBOutlet var audioNames: UILabel!
     @IBOutlet var playButton: UIButton!
+    
     @IBAction func audio1DidTapped(_ sender: UIButton) {
-        playSound()
-        
     }
     
     @IBAction func audio2DidTapped(_ sender: UIButton) {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     func playSound() {
