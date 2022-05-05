@@ -13,7 +13,6 @@
 		0449E92C2819874100331013 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0449E92A2819874100331013 /* Main.storyboard */; };
 		0449E92E2819874200331013 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0449E92D2819874200331013 /* Assets.xcassets */; };
 		0449E9312819874200331013 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0449E92F2819874200331013 /* LaunchScreen.storyboard */; };
-		0449E939281AA40F00331013 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0449E938281AA40F00331013 /* FileManager.swift */; };
 		0449E93C281BEA1F00331013 /* Ark Patrol feat. Veronika Redd - Let Go.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0449E93A281BEA1F00331013 /* Ark Patrol feat. Veronika Redd - Let Go.mp3 */; };
 		0449E93D281BEA1F00331013 /* awfultune - I Met Sarah in the Bathroom.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0449E93B281BEA1F00331013 /* awfultune - I Met Sarah in the Bathroom.mp3 */; };
 /* End PBXBuildFile section */
@@ -27,7 +26,6 @@
 		0449E92D2819874200331013 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0449E9302819874200331013 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0449E9322819874200331013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0449E938281AA40F00331013 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		0449E93A281BEA1F00331013 /* Ark Patrol feat. Veronika Redd - Let Go.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ark Patrol feat. Veronika Redd - Let Go.mp3"; sourceTree = "<group>"; };
 		0449E93B281BEA1F00331013 /* awfultune - I Met Sarah in the Bathroom.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "awfultune - I Met Sarah in the Bathroom.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,7 +64,6 @@
 				0449E9262819874100331013 /* SceneDelegate.swift */,
 				0449E9282819874100331013 /* ViewController.swift */,
 				0449E92A2819874100331013 /* Main.storyboard */,
-				0449E938281AA40F00331013 /* FileManager.swift */,
 				0449E93A281BEA1F00331013 /* Ark Patrol feat. Veronika Redd - Let Go.mp3 */,
 				0449E93B281BEA1F00331013 /* awfultune - I Met Sarah in the Bathroom.mp3 */,
 				0449E92D2819874200331013 /* Assets.xcassets */,
@@ -152,7 +149,6 @@
 				0449E9292819874100331013 /* ViewController.swift in Sources */,
 				0449E9252819874100331013 /* AppDelegate.swift in Sources */,
 				0449E9272819874100331013 /* SceneDelegate.swift in Sources */,
-				0449E939281AA40F00331013 /* FileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

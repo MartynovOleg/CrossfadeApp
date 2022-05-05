@@ -17,67 +17,101 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbi-Xj-ivH">
-                                <rect key="frame" x="20" y="586" width="126" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Audio №1" cornerStyle="capsule">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="audio1DidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="txl-Pm-lgW"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nu6-Er-nxv">
-                                <rect key="frame" x="268" y="586" width="126" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Audio №2" cornerStyle="capsule">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="audio2DidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xoj-bU-sof"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="-1" contentMode="bottom" semanticContentAttribute="forceLeftToRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mrq-10-p6k">
-                                <rect key="frame" x="20" y="44" width="374" height="294"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="17w-AJ-7fy">
+                                <rect key="frame" x="20" y="64" width="374" height="329.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="music.note" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="W77-jP-ybz">
+                                        <rect key="frame" x="132" y="50.5" width="110" height="109"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="W77-jP-ybz" secondAttribute="height" multiplier="1:1" id="dPh-EF-gTg"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="-1" contentMode="bottom" semanticContentAttribute="forceLeftToRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="none" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Mrq-10-p6k">
+                                        <rect key="frame" x="24" y="245" width="326.5" height="59"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" image="YES" playsSound="YES"/>
+                                        </accessibility>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Michael Jackson - They Don't Care About Us">
+                                                <attributes>
+                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <font key="NSFont" size="24" name="SFMono-Bold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <color key="shadowColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="shadowOffset" width="0.0" height="3"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" image="YES" playsSound="YES"/>
-                                </accessibility>
-                                <attributedString key="attributedText"/>
-                                <color key="shadowColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="shadowOffset" width="0.0" height="3"/>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" toolTip="Crossfade" value="2" minValue="2" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="sw4-yx-GpG">
-                                <rect key="frame" x="18" y="712" width="378" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <imageReference key="minimumValueImage" image="2.circle" catalog="system" symbolScale="large"/>
-                                <imageReference key="maximumValueImage" image="10.circle" catalog="system" symbolScale="large"/>
-                                <color key="minimumTrackTintColor" systemColor="labelColor"/>
-                                <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="crossfadeValues:" destination="BYZ-38-t0r" eventType="valueChanged" id="EYb-ep-pcK"/>
-                                </connections>
-                            </slider>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="music.note" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="W77-jP-ybz">
-                                <rect key="frame" x="20" y="44.5" width="374" height="115"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="left" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cEZ-Kr-NVI">
-                                <rect key="frame" x="144" y="409" width="126" height="78"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mrq-10-p6k" secondAttribute="trailing" constant="20" id="AsW-LY-uoa"/>
+                                    <constraint firstItem="Mrq-10-p6k" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="17w-AJ-7fy" secondAttribute="leading" constant="15" id="LpQ-Qj-KFO"/>
+                                    <constraint firstItem="Mrq-10-p6k" firstAttribute="centerX" secondItem="17w-AJ-7fy" secondAttribute="centerX" id="SCt-xv-2UD"/>
+                                    <constraint firstItem="W77-jP-ybz" firstAttribute="centerY" secondItem="17w-AJ-7fy" secondAttribute="centerY" constant="-60" id="SNa-xv-Xar"/>
+                                    <constraint firstItem="W77-jP-ybz" firstAttribute="width" secondItem="17w-AJ-7fy" secondAttribute="height" multiplier="1:3" id="iTn-Nb-tRA"/>
+                                    <constraint firstItem="W77-jP-ybz" firstAttribute="centerX" secondItem="17w-AJ-7fy" secondAttribute="centerX" id="jGl-NA-dAM"/>
+                                    <constraint firstAttribute="width" secondItem="17w-AJ-7fy" secondAttribute="height" multiplier="414:365" id="kJw-xy-09r"/>
+                                    <constraint firstAttribute="bottom" secondItem="Mrq-10-p6k" secondAttribute="bottom" constant="25.5" id="uBu-A3-0id"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="6BW-kX-G48">
+                                <rect key="frame" x="20" y="411" width="374" height="191"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Nr2-mT-UDQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbi-Xj-ivH">
+                                                <rect key="frame" x="0.0" y="0.0" width="171" height="44"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Audio 1" cornerStyle="capsule">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="audio1DidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="txl-Pm-lgW"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nu6-Er-nxv">
+                                                <rect key="frame" x="203" y="0.0" width="171" height="44"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Audio 2" cornerStyle="capsule">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="audio2DidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xoj-bU-sof"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="God-XU-J5U"/>
+                                        </constraints>
+                                    </stackView>
+                                    <slider toolTip="Crossfade" opaque="NO" contentMode="scaleToFill" restorationIdentifier="crossfadeVolume" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="2" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="sw4-yx-GpG">
+                                        <rect key="frame" x="-2" y="161" width="378" height="31"/>
+                                        <imageReference key="minimumValueImage" image="2.circle" catalog="system" symbolScale="large"/>
+                                        <imageReference key="maximumValueImage" image="10.circle" catalog="system" symbolScale="large"/>
+                                        <color key="minimumTrackTintColor" systemColor="labelColor"/>
+                                        <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="crossfadeSlider:" destination="BYZ-38-t0r" eventType="valueChanged" id="G4n-wc-7zK"/>
+                                            <action selector="crossfadeValues:" destination="BYZ-38-t0r" eventType="valueChanged" id="EYb-ep-pcK"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="left" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cEZ-Kr-NVI">
+                                <rect key="frame" x="159" y="734.5" width="96" height="95"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="96" id="0SC-6O-15Q"/>
+                                    <constraint firstAttribute="width" secondItem="cEZ-Kr-NVI" secondAttribute="height" multiplier="1:1" id="oII-5u-fjE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <size key="titleShadowOffset" width="25" height="25"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Play" imagePadding="10" cornerStyle="capsule">
-                                    <imageReference key="image" image="play.circle.fill" catalog="system" symbolScale="default" renderingMode="original"/>
-                                    <backgroundConfiguration key="background" strokeWidth="0.0" strokeOutset="0.0"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="40" scale="default"/>
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="18"/>
-                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" systemColor="systemGray2Color"/>
-                                </buttonConfiguration>
+                                <state key="normal" backgroundImage="play.circle.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="playDidTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sy3-w6-eKL"/>
                                 </connections>
@@ -86,11 +120,23 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <color key="tintColor" systemColor="labelColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="17w-AJ-7fy" secondAttribute="trailing" constant="20" id="6Bx-3i-wxW"/>
+                            <constraint firstItem="6BW-kX-G48" firstAttribute="top" secondItem="17w-AJ-7fy" secondAttribute="bottom" constant="17.5" id="6eA-hT-g8c"/>
+                            <constraint firstItem="6BW-kX-G48" firstAttribute="trailing" secondItem="17w-AJ-7fy" secondAttribute="trailing" id="F9N-os-wYE"/>
+                            <constraint firstItem="17w-AJ-7fy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="G4Q-wa-Raj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cEZ-Kr-NVI" secondAttribute="bottom" constant="32" id="PIy-LX-fHO"/>
+                            <constraint firstItem="cEZ-Kr-NVI" firstAttribute="top" relation="lessThanOrEqual" secondItem="6BW-kX-G48" secondAttribute="bottom" constant="132" id="XFL-rD-weM"/>
+                            <constraint firstItem="cEZ-Kr-NVI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dpZ-9q-ZND"/>
+                            <constraint firstItem="17w-AJ-7fy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="hRa-60-UqO"/>
+                            <constraint firstItem="6BW-kX-G48" firstAttribute="leading" secondItem="17w-AJ-7fy" secondAttribute="leading" id="tOA-RH-OoS"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="audio1Botton" destination="cbi-Xj-ivH" id="bIK-to-6Q2"/>
                         <outlet property="audio2Button" destination="nu6-Er-nxv" id="mT6-io-faR"/>
                         <outlet property="audioNames" destination="Mrq-10-p6k" id="904-i4-VWx"/>
+                        <outlet property="containerView" destination="17w-AJ-7fy" id="q0s-Z3-gtS"/>
                         <outlet property="playButton" destination="cEZ-Kr-NVI" id="qEq-2I-Xzi"/>
                     </connections>
                 </viewController>
@@ -106,9 +152,6 @@
         <image name="play.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

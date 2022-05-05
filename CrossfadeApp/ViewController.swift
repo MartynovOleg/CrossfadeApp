@@ -7,54 +7,71 @@
 
 import UIKit
 import AVFoundation
+import MobileCoreServices
 
 class ViewController: UIViewController {
     
-    var audioPlayer: AVAudioPlayer?
+    // MARK: - Properties
     
-    var fileURL = Bundle.main.path(forResource: "Ark Patrol feat. Veronika Redd - Let Go", ofType: "mp3")
-   
+    @IBOutlet var containerView: UIView!
     @IBOutlet var audio1Botton: UIButton!
     @IBOutlet var audio2Button: UIButton!
+    @IBOutlet var audioNames: UILabel!
+    @IBOutlet var playButton: UIButton!
+    
+    var audioPlayer: AVAudioPlayer?
+    var fileURL = Bundle.main.path(forResource: "Ark Patrol feat. Veronika Redd - Let Go", ofType: "mp3")
+    var firstSelectedUrl: URL?
+    var secondSelectedUrl: URL?
+    var selectingFileHandler: ((URL) -> Void)?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.tintColor = .systemMint
+        containerView.layer.cornerRadius = 8
+    }
+    
+    // MARK: - IBActions
+    
     @IBAction func playDidTapped(_ sender: Any) {
         
         if let audioPlayer = audioPlayer, audioPlayer.isPlaying {
             audioPlayer.stop()
-            playButton.setTitle(" Play", for: .normal)
-            self.audioNames.text = ""
-            playButton.setImage(UIImage.init(systemName: "play.circle.fill"), for: .normal)
+            audioNames.text = ""
+            playButton.setBackgroundImage(UIImage.init(systemName: "play.circle.fill"), for: .normal)
         } else {
             playSound()
-            playButton.setTitle(" Stop", for: .normal)
-            playButton.setImage(UIImage.init(systemName: "stop.circle.fill"), for: .normal)
+            playButton.setBackgroundImage(UIImage.init(systemName: "stop.circle.fill"), for: .normal)
         }
     }
-    @IBAction func crossfadeValues(_ sender: Any) {
-    }
-    @IBOutlet var audioNames: UILabel!
-    @IBOutlet var playButton: UIButton!
     
     @IBAction func audio1DidTapped(_ sender: UIButton) {
+        selectingFileHandler = { url in
+            self.firstSelectedUrl = url
+        }
+        openDocumentPicker()
     }
     
     @IBAction func audio2DidTapped(_ sender: UIButton) {
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        selectingFileHandler = { url in
+            self.secondSelectedUrl = url
+        }
+        openDocumentPicker()
     }
     
-    func playSound() {
-        guard let url = Bundle.main.url(forResource: "Ark Patrol feat. Veronika Redd - Let Go", withExtension: "mp3") else { return }
+    @IBAction func crossfadeSlider(_ sender: UISlider) {
+    }
+    
+    // MARK: - Private
+    
+    private func playSound() {
+        guard let url = firstSelectedUrl else { return }
         self.audioNames.text = url.lastPathComponent
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
 
-            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
             audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-
-            /* iOS 10 and earlier require the following line:
-            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
 
             guard let audioPlayer = audioPlayer else {
                 return
@@ -65,6 +82,21 @@ class ViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
-    
-   }
+    private func openDocumentPicker() {
+        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.mp3])
+        present(documentPickerController, animated: true)
+        documentPickerController.delegate = self
+    }
+   // private func crossfadeVolume() {
+   //       audioPlayer?.setVolume(0.00, fadeDuration: crossfadeSlider.value)
+   //}
+}
+
+extension ViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if urls.isEmpty { return }
+        selectingFileHandler?(urls[0])
+        selectingFileHandler = nil
+    }
+}
 
