@@ -20,10 +20,10 @@ class ViewController: UIViewController {
     @IBOutlet var playButton: UIButton!
     
     var audioPlayer: AVAudioPlayer?
-    var avPlayer: AVPlayer?
+    var avPlayer: AVQueuePlayer?
+    var looper: AVPlayerLooper?
     let composition = AVMutableComposition()
 
-    //var fileURL = Bundle.main.path(forResource: "Ark Patrol feat. Veronika Redd - Let Go", ofType: "mp3")
     var firstSelectedUrl: URL?
     var secondSelectedUrl: URL?
     var selectingFileHandler: ((URL) -> Void)?
@@ -72,65 +72,56 @@ class ViewController: UIViewController {
               let secondFileUrl = secondSelectedUrl else { return }
         self.audioNames.text = url.lastPathComponent
         do {
-//            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-//            try AVAudioSession.sharedInstance().setActive(true)
-
-//            audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-//
-//            guard let audioPlayer = audioPlayer else {
-//                return
-//            }
-//            audioPlayer.play()
-//            audioPlayer.numberOfLoops = -1
             
             let asset = AVAsset(url: url)
             let secondAsset = AVAsset(url: secondFileUrl)
             
             guard let track = asset.tracks.first,
             let secondTrack = secondAsset.tracks.first else { return }
-            
-            
-//            let trackSegment = AVCompositionTrackSegment(url: url,
-//                                                         trackID: track.trackID,
-//                                                         sourceTimeRange: CMTimeRange(start: CMTime(seconds: 0, preferredTimescale: 1),
-//                                                                                      duration: asset.duration),
-//                                                         targetTimeRange: CMTimeRange(start: CMTime(value: asset.duration.value - 5,
-//                                                                                                    timescale: 1),
-//                                                                                      end: asset.duration))
-            
-//            composition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: trackSegment.sourceTrackID)
-            
+
             let composition = AVMutableComposition()
             let firstTrackComposition = composition.addMutableTrack(withMediaType: track.mediaType, preferredTrackID: track.trackID)
             let secondTrackComposition = composition.addMutableTrack(withMediaType: secondTrack.mediaType, preferredTrackID: secondTrack.trackID)
-            
-            try! firstTrackComposition?.insertTimeRange(CMTimeRange(start: CMTime(seconds: 0, preferredTimescale: 1),
-                                                    duration: asset.duration),
-                                        of: track,
-                                        at: .zero)
-            
-            try! secondTrackComposition?.insertTimeRange(CMTimeRange(start: CMTime(seconds: 0, preferredTimescale: 1),
-                                                    duration: secondAsset.duration),
-                                        of: secondTrack,
-                                        at: .zero)
+
+            let fadeDuration: CMTime = 2.5
+            let offset: CMTime = 0.0
+            try firstTrackComposition?.insertTimeRange(CMTimeRange(start: 0.0,
+                                                                   duration: asset.duration),
+                                                       of: track,
+                                                       at: .zero)
+            try secondTrackComposition?.insertTimeRange(CMTimeRange(start: 0.0,
+                                                                    duration: secondAsset.duration),
+                                                        of: secondTrack,
+                                                        at: asset.duration - offset)
             
             let playerItem = AVPlayerItem(asset: composition)
-            avPlayer = AVPlayer(playerItem: playerItem)
             
             let mix = AVMutableAudioMix()
-            let firstTrackParameters = AVMutableAudioMixInputParameters(track: track)
-            firstTrackParameters.setVolumeRamp(fromStartVolume: 0.01,
-                                     toEndVolume: 1,
-                                     timeRange: CMTimeRange(start: CMTime(seconds: 0, preferredTimescale: 1),
-                                                            duration: CMTime(seconds: 5, preferredTimescale: 1)))
-            let secondTrackParameters = AVMutableAudioMixInputParameters(track: secondTrack)
-            firstTrackParameters.setVolumeRamp(fromStartVolume: 0.01,
-                                     toEndVolume: 1,
-                                     timeRange: CMTimeRange(start: CMTime(seconds: 0, preferredTimescale: 1),
-                                                            duration: CMTime(seconds: 5, preferredTimescale: 1)))
+            let firstTrackParameters = AVMutableAudioMixInputParameters(track: firstTrackComposition!)
+            firstTrackParameters.setVolumeRamp(fromStartVolume: 0,
+                                               toEndVolume: 1,
+                                               timeRange: CMTimeRange(start: 0.0,
+                                                                      duration: fadeDuration))
+            firstTrackParameters.setVolumeRamp(fromStartVolume: 1,
+                                               toEndVolume: 0,
+                                               timeRange: CMTimeRange(start: asset.duration - offset,
+                                                                      duration: fadeDuration))
+            let secondTrackParameters = AVMutableAudioMixInputParameters(track: secondTrackComposition!)
+            secondTrackParameters.setVolumeRamp(fromStartVolume: 0,
+                                                toEndVolume: 1,
+                                                timeRange: CMTimeRange(start: asset.duration - offset,
+                                                                       duration: fadeDuration))
+            secondTrackParameters.setVolumeRamp(fromStartVolume: 1,
+                                                toEndVolume: 0,
+                                                 timeRange: CMTimeRange(start: asset.duration + secondAsset.duration - offset - offset,
+                                                                      duration: fadeDuration))
             mix.inputParameters = [firstTrackParameters, secondTrackParameters]
-           // avPlayer?.currentItem?.audioMix = mix
-            avPlayer?.play()
+            playerItem.audioMix = mix
+            
+            let player = AVQueuePlayer(playerItem: playerItem)
+            avPlayer = player
+            looper = AVPlayerLooper(player: player, templateItem: playerItem)
+            player.play()
         } catch let error {
             print(error.localizedDescription)
         }
@@ -153,3 +144,8 @@ extension ViewController: UIDocumentPickerDelegate {
     }
 }
 
+extension CMTime: ExpressibleByFloatLiteral {
+    public init(floatLiteral value: Double) {
+        self.init(seconds: value, preferredTimescale: 1)
+    }
+}
