@@ -36,17 +36,17 @@ class ViewController: UIViewController {
     
     // MARK: - IBActions
     
-    @IBAction func playDidTapped(_ sender: Any) {
-        
-        if let avPlayer = avPlayer {
-            avPlayer.pause()
+        @IBAction func playDidTapped(_ sender: Any) {
+            avPlayer?.stop()
+            if let avPlayer = avPlayer, avPlayer.isExternalPlaybackActive {
             audioNames.text = ""
             playButton.setBackgroundImage(UIImage.init(systemName: "play.circle.fill"), for: .normal)
-        } else {
+
+            } else {
             playSound()
             playButton.setBackgroundImage(UIImage.init(systemName: "stop.circle.fill"), for: .normal)
         }
-    }
+        }
     
     @IBAction func audio1DidTapped(_ sender: UIButton) {
         selectingFileHandler = { url in
@@ -70,9 +70,8 @@ class ViewController: UIViewController {
     private func playSound() {
         guard let url = firstSelectedUrl,
               let secondFileUrl = secondSelectedUrl else { return }
-        self.audioNames.text = url.lastPathComponent
+        self.audioNames.text = "Now playing\n\n" + "1.\(url.lastPathComponent)\n" + "2.\(secondFileUrl.lastPathComponent)"
         do {
-            
             let asset = AVAsset(url: url)
             let secondAsset = AVAsset(url: secondFileUrl)
             
@@ -122,6 +121,7 @@ class ViewController: UIViewController {
             avPlayer = player
             looper = AVPlayerLooper(player: player, templateItem: playerItem)
             player.play()
+
         } catch let error {
             print(error.localizedDescription)
         }
@@ -148,4 +148,11 @@ extension CMTime: ExpressibleByFloatLiteral {
     public init(floatLiteral value: Double) {
         self.init(seconds: value, preferredTimescale: 1)
     }
+}
+
+extension AVQueuePlayer {
+   func stop(){
+    self.seek(to: CMTime.zero)
+    self.pause()
+   }
 }
